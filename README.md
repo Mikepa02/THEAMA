@@ -56,18 +56,37 @@ DB_NAME=theama
 PORT=3000
 ```
 
-### 4. Automatic Database Setup
+### 4. Database Setup
 
-Run the setup script to automatically create the database and load the schema and seed data:
+#### Automated Setup (Recommended)
+
+Run this command to automatically create the database and load all data:
 
 ```bash
 npm run setup
 ```
 
-This will:
-- Create the MariaDB database (if it doesn't exist)
-- Load the database schema from `database/schema.sql`
-- Insert seed data from `database/seed.sql`
+This single command will:
+1. Create the MariaDB database (if it doesn't exist)
+2. Create all tables using the schema
+3. Populate the database with initial data
+
+**That's all the teacher needs to run!** No other steps needed for the database.
+
+#### Manual Setup (Alternative)
+
+If the automated setup doesn't work, you can set up manually:
+
+1. First, make sure MariaDB is running
+2. Open a terminal in the `theama-backend` directory
+3. Run these commands one by one:
+
+```bash
+mysql -u root -p < ../database/schema.sql
+mysql -u root -p < ../database/seed.sql
+```
+
+When prompted, enter your MariaDB root password.
 
 ### 5. Start the Backend Server
 
@@ -118,26 +137,6 @@ THEAMA/
 └── TheamaMobile/
 ```
 
-## Database Setup
-
-The database setup is fully automated. Just run:
-
-```bash
-npm run setup
-```
-
-This will handle:
-- Database creation
-- Schema initialization
-- Initial data seeding
-
-If you prefer manual setup, you can run the SQL files directly:
-
-```bash
-mysql -u root -p < ../database/schema.sql
-mysql -u root -p < ../database/seed.sql
-```
-
 ## Environment Variables
 
 The following environment variables need to be set in the `.env` file:
@@ -156,4 +155,3 @@ In the `theama-backend` directory, you can run:
 - `npm start` - Start the production server
 - `npm run dev` - Start the development server with auto-reload
 - `npm run setup` - Initialize and seed the database
-
