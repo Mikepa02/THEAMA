@@ -157,8 +157,3 @@ In the `theama-backend` directory, you can run:
 - `npm run dev` - Start the development server with auto-reload
 - `npm run setup` - Initialize and seed the database
 
-## Academic Submission
-
-This repository was developed as part of a university software development project.
-
-Author: Mike
