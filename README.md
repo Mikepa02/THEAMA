@@ -45,48 +45,34 @@ Copy the example environment file to create your `.env` file:
 cp .env.example .env
 ```
 
-Edit the `.env` file and update the database credentials if needed:
+Edit the `.env` file and make sure it has all required variables:
 
 ```env
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=your_mariadb_password
+DB_PASSWORD=root
 DB_NAME=theama
 PORT=3000
+JWT_SECRET=your_super_secret_key_change_this_in_production
+JWT_EXPIRES_IN=7d
 ```
 
-### 4. Database Setup
+**Important:** Update `DB_PASSWORD` with your actual MariaDB root password.
 
-#### Automated Setup (Recommended)
+### 4. Automatic Database Setup
 
-Run this command to automatically create the database and load all data:
+Run the setup script to automatically create the database and load the schema and seed data:
 
 ```bash
 npm run setup
 ```
 
-This single command will:
-1. Create the MariaDB database (if it doesn't exist)
-2. Create all tables using the schema
-3. Populate the database with initial data
-
-**That's all the teacher needs to run!** No other steps needed for the database.
-
-#### Manual Setup (Alternative)
-
-If the automated setup doesn't work, you can set up manually:
-
-1. First, make sure MariaDB is running
-2. Open a terminal in the `theama-backend` directory
-3. Run these commands one by one:
-
-```bash
-mysql -u root -p < ../database/schema.sql
-mysql -u root -p < ../database/seed.sql
-```
-
-When prompted, enter your MariaDB root password.
+This will:
+- Create the MariaDB database (if it doesn't exist)
+- Load the database schema from `database/schema.sql`
+- Insert seed data from `database/seed.sql`
+- **Pre-populate the admin user** (see credentials below)
 
 ### 5. Start the Backend Server
 
@@ -133,9 +119,40 @@ THEAMA/
 │   ├── src/
 │   ├── setup.js
 │   ├── package.json
-│   └── .env.example
+│   ├── .env.example
+│   └── .env
 └── TheamaMobile/
 ```
+
+## Database Setup
+
+The database setup is fully automated. Just run:
+
+```bash
+npm run setup
+```
+
+This will handle:
+- Database creation
+- Schema initialization
+- Initial data seeding
+- Admin user creation
+
+If you prefer manual setup, you can run the SQL files directly:
+
+```bash
+mysql -u root -p < ../database/schema.sql
+mysql -u root -p < ../database/seed.sql
+```
+
+## Admin Credentials
+
+After running `npm run setup`, the admin account is automatically created with the following credentials:
+
+- **Email:** `admin@theama.gr`
+- **Password:** `admin123`
+
+Use these credentials to log in to the admin panel in the mobile application.
 
 ## Environment Variables
 
@@ -147,6 +164,8 @@ The following environment variables need to be set in the `.env` file:
 - `DB_PASSWORD` - MariaDB password
 - `DB_NAME` - Database name (default: theama)
 - `PORT` - Node.js server port (default: 3000)
+- `JWT_SECRET` - Secret key for JWT token signing (must be set)
+- `JWT_EXPIRES_IN` - JWT token expiration time (default: 7d)
 
 ## Available Scripts
 
