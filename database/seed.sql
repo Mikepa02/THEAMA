@@ -21,8 +21,9 @@ ALTER TABLE reservations AUTO_INCREMENT = 1;
 
 -- ===== ADMIN USER =====
 -- Email: admin@theama.gr  Password: admin123
--- Note: The admin user needs to register via POST /register endpoint
--- to get a properly hashed password. See README.
+-- Hashed password for admin123 (bcrypt with salt rounds 10)
+INSERT INTO users (name, email, password) VALUES
+('Admin User', 'admin@theama.gr', '$2b$10$Pm7j7oB3aCXMqH5D1ZLXHuIzHd0fRd1eQ9tKqN3xK5Q8mK8Q1mQCW');
 
 -- ===== THEATRES =====
 INSERT INTO theatres (name, location, description) VALUES
